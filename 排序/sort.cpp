@@ -73,6 +73,11 @@ void SelectSort(int nums[],int n)
     }
 }
 
+// 4.归并排序
+// 时间复杂度：
+// 空间复杂度：
+// 稳定性：
+
 void output(int nums[],int n)
 {
     for(int i=0;i<n;i++)
@@ -86,7 +91,7 @@ int data3[5][40000];
 
 int main()
 {
-
+    int data0[10] = {8,2,1,3,4,9,6,5,7,10};
     clock_t start,finish;
     
     //随机产生待排序数组
