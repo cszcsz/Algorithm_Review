@@ -1,7 +1,7 @@
 #include <iostream>
+#include <algorithm>
 #include <ctime>
 using namespace std;
-//TODO:用c++和python实现各种排序算法
 
 // 1.冒泡排序
 // 时间复杂度:最好-O(n),最坏-O(n^2)，平均-O(n^2)  
@@ -77,6 +77,51 @@ void SelectSort(int nums[],int n)
 // 时间复杂度：
 // 空间复杂度：
 // 稳定性：
+// 递推式：sort(p,q) = merge(sort(p,r),sort(r+1,q))  边界条件:p>=q
+void Merge(int nums[],int p,int q,int r);
+void MergeSortR(int nums[],int p,int q)
+{
+    if(p>=q)
+        return;
+    int r = (p+q)/2;
+    MergeSortR(nums,p,r);
+    MergeSortR(nums,r+1,q);
+    Merge(nums,p,q,r);
+
+}
+
+//把nums[p...r]和nums[r+1,q]合并到nums[p...q]
+void Merge(int nums[],int p,int q,int r)
+{
+    int n=q-p+1,i=p,j=r+1,k=0;
+    int *tmp = new int[n];
+    //二路归并
+    while (i<=r&&j<=q)
+    {
+        if(nums[i]<=nums[j])
+            tmp[k++]=nums[i++];
+        else
+            tmp[k++]=nums[j++];
+    }
+    //把其中一个剩余的数组中的数搬到临时数组中
+    int start=i,end=r;
+    if(j<=q)
+    {
+       start=j;
+       end=q;  
+    }
+    while (start<=end)
+        tmp[k++]=nums[start++];
+    //将tmp临时数组拷贝回nums数组
+    for(int t=0;t<=q-p;t++)
+        nums[p+t]=tmp[t];
+    delete tmp;
+}
+
+void MergeSort(int nums[],int n)
+{
+    MergeSortR(nums,0,n-1);
+}
 
 void output(int nums[],int n)
 {
@@ -87,39 +132,36 @@ void output(int nums[],int n)
 
 int data1[5][40000];
 int data2[5][40000];
-int data3[5][40000];
 
 int main()
 {
     int data0[10] = {8,2,1,3,4,9,6,5,7,10};
     clock_t start,finish;
+    // MergeSort(data0,10);
+    // output(data0,10);
+
     
     //随机产生待排序数组
     for(int i=0;i<5;i++)
     {
         for(int j=0;j<40000;j++)
         {
-            data1[i][j]=data2[i][j]=data3[i][j]=rand()%100;
+            data1[i][j]=data2[i][j]=rand()%100;
         }
     }
 
-    // start=clock();
-    // for(int i=0;i<5;i++)
-    //     BubbleSort(data1[i],40000);
-    // finish=clock();
-    // cout<<"冒泡排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<endl;
+    start=clock();
+    for(int i=0;i<5;i++)
+        MergeSort(data1[i],40000);
+    finish=clock();
+    cout<<"归并排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<"秒"<<endl;
 
     start=clock();
     for(int i=0;i<5;i++)
         InsertSort(data2[i],40000);
     finish=clock();
-    cout<<"插入排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<endl;
+    cout<<"插入排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<"秒"<<endl;
 
-    // start=clock();
-    // for(int i=0;i<5;i++)
-    //     SelectSort(data3[i],40000);
-    // finish=clock();
-    // cout<<"选择排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<endl;
-    // cout<<data2[0]<<" ";
+
     return 0;
 }
