@@ -74,9 +74,9 @@ void SelectSort(int nums[],int n)
 }
 
 // 4.归并排序
-// 时间复杂度：
-// 空间复杂度：
-// 稳定性：
+// 时间复杂度：所有情况下都是O(nlogn)
+// 空间复杂度：每次归并需要开辟一个临时数组然后释放，所以是O(n)
+// 稳定性：稳定
 // 递推式：sort(p,q) = merge(sort(p,r),sort(r+1,q))  边界条件:p>=q
 void Merge(int nums[],int p,int q,int r);
 void MergeSortR(int nums[],int p,int q)
