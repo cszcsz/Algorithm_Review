@@ -123,6 +123,45 @@ void MergeSort(int nums[],int n)
     MergeSortR(nums,0,n-1);
 }
 
+
+// 5.快速排序
+// 时间复杂度：最坏(数组逆序):O(n^2),平均(大多数情况):O(nlogn)
+// 空间复杂度：O(1)
+// 稳定性：不稳定
+// 递推式：sort(A[p..q]) = sort(A[p..r-1])+sort(A[r+1..q]) 终止条件:p>=q
+int Partition(int nums[],int p,int q);
+void QuickSortR(int nums[],int p,int q)
+{
+    if(p>=q)
+        return;
+    int r=Partition(nums,p,q);
+    QuickSortR(nums,p,r-1);
+    QuickSortR(nums,r+1,q);
+}
+
+int Partition(int nums[],int p,int q)
+{
+    int val=nums[q],i=p,j=p;
+    for(;i<q;i++)
+    {
+        if(nums[i]<=val)
+        {
+            int temp=nums[i];
+            nums[i]=nums[j];
+            nums[j]=temp;
+            j++;
+        }
+    }
+    nums[q]=nums[j];
+    nums[j]=val;
+    return j;
+}
+
+void QuickSort(int nums[],int n)
+{
+    QuickSortR(nums,0,n-1);
+}
+
 void output(int nums[],int n)
 {
     for(int i=0;i<n;i++)
@@ -137,8 +176,8 @@ int main()
 {
     int data0[10] = {8,2,1,3,4,9,6,5,7,10};
     clock_t start,finish;
-    // MergeSort(data0,10);
-    // output(data0,10);
+    QuickSort(data0,10);
+    output(data0,10);
 
     
     //随机产生待排序数组
@@ -146,7 +185,7 @@ int main()
     {
         for(int j=0;j<40000;j++)
         {
-            data1[i][j]=data2[i][j]=rand()%100;
+            data1[i][j]=data2[i][j]=int(rand()%100);
         }
     }
 
