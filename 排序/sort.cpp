@@ -48,7 +48,6 @@ void InsertSort(int nums[],int n)
         }
         nums[j+1]=tmp;
     }
-    
 }
 
 // 3.选择排序

@@ -1,10 +1,11 @@
 # 冒泡排序
 def BubbleSort(data):
-    length=len(data)
+    length = len(data)
     for i in range(length):
         for j in range(length-i-1):
             if data[j]>data[j+1]:
                 data[j+1],data[j] = data[j],data[j+1]
+
 
 # 插入排序
 def InsertSort(data):
