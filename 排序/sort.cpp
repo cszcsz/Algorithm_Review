@@ -161,6 +161,26 @@ void QuickSort(int nums[],int n)
     QuickSortR(nums,0,n-1);
 }
 
+
+// 6.希尔排序
+// 时间复杂度：所有情况下都是O(nlogn)
+// 空间复杂度：O(1)
+// 稳定性：不稳定
+void ShellSort(int nums[],int n)
+{
+    int gap=n/2;
+    while (gap>=1)
+    {
+        for(int i=gap;i<n;i++)
+        {
+            for(int j=i;j-gap>=0&&nums[j]<nums[j-gap];j-=gap)
+                swap(nums[j],nums[j-gap]);
+        }
+        gap/=2;
+    }
+}
+
+
 void output(int nums[],int n)
 {
     for(int i=0;i<n;i++)
@@ -175,7 +195,7 @@ int main()
 {
     int data0[10] = {8,2,1,3,4,9,6,5,7,10};
     clock_t start,finish;
-    QuickSort(data0,10);
+    ShellSort(data0,10);
     output(data0,10);
 
     
@@ -190,9 +210,9 @@ int main()
 
     start=clock();
     for(int i=0;i<5;i++)
-        MergeSort(data1[i],40000);
+        ShellSort(data1[i],40000);
     finish=clock();
-    cout<<"归并排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<"秒"<<endl;
+    cout<<"希尔排序用时："<<(double)(finish-start)/(CLOCKS_PER_SEC)<<"秒"<<endl;
 
     start=clock();
     for(int i=0;i<5;i++)
