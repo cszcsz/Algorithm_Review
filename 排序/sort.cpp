@@ -163,7 +163,7 @@ void QuickSort(int nums[],int n)
 
 
 // 6.希尔排序
-// 时间复杂度：所有情况下都是O(nlogn)
+// 时间复杂度：平均O(n^1.3)，最好O(n),最坏O(n^2)
 // 空间复杂度：O(1)
 // 稳定性：不稳定
 void ShellSort(int nums[],int n)
